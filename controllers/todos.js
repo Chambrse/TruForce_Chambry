@@ -19,18 +19,33 @@ let response = {
 };
 
 exports.createTodo = function (req, res) {
+
+  console.log(req.body);
   let todo = new Todo({
     'title': req.body.title,
-    'text': req.body.text
+    'text': req.body.text,
+    'department': req.body.department
   });
 
   todo.save((err) => {
     if (err)
       sendError(err, res);
     response.data = 'Todo created';
-    res.json(response);
+    res.status(201).send({ redirect: "/api/v1/todos" });
   });
 };
+
+exports.updateTodoStatus = function (req, res) {
+console.log(req.params)
+  Todo.findByIdAndUpdate(req.params.todoid, { status: req.body.status }, function (err, todo) {
+    if (err)
+      sendError(err, res);
+    response.data = 'Updated'
+    console.log(todo);
+    res.json(response);
+
+  });
+}
 
 exports.getTodos = function (req, res) {
   Todo.find({}, function (err, todos) {
@@ -45,7 +60,7 @@ exports.deleteTodo = function (req, res) {
   let todoId = req.params.todoid;
 
   Todo.findByIdAndRemove(todoId, function (err, todo) {
-    if(err)
+    if (err)
       sendError(err, res);
     response.data = 'Todo deleted'
     res.json(response);

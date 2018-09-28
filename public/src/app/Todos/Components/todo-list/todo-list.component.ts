@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 // Import the DataService
 import { DataService } from './../../Services/data.service';
@@ -10,8 +11,8 @@ import { DataService } from './../../Services/data.service';
 })
 export class TodoListComponent implements OnInit {
 
-  todos: Array<Object> = [];
-  private todo: Object = {};
+  todos: Array<any> = [];
+  private todo: any;
 
   constructor(private _dataService: DataService) {
     this._dataService.getTodos()
@@ -19,6 +20,13 @@ export class TodoListComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  onTodoUpdate(todoId: String, status: String) {
+    this._dataService.updateTodo(todoId, status)
+    .subscribe(res => {
+      this.todos[this.todos.findIndex((element: any) => element._id === todoId)].status = status;
+    });
+  }
 
   onTodoDelete(todoId: String) {
     this._dataService.deleteTodo(todoId)

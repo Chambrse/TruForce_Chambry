@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DataService {
@@ -12,7 +12,7 @@ export class DataService {
 
   getTodos() {
     return this._http.get('/api/v1/todos')
-      .map(result => result.json().data);
+      .pipe(map(result => result.json().data));
   }
 
   createTodo(body) {
@@ -21,7 +21,7 @@ export class DataService {
     let options = new RequestOptions({ headers: headers });
 
     return this._http.post('/api/v1/todo', body, options)
-      .map((res: Response) => res.json());
+      .pipe(map((res: Response) => res.json()));
   }
 
   deleteTodo(todoId) {
@@ -29,7 +29,15 @@ export class DataService {
     let options = new RequestOptions({ headers: headers });
 
     return this._http.delete('/api/v1/todo/'+todoId, options)
-      .map((res: Response) => res.json());
+      .pipe(map((res: Response) => res.json()));
+  }
+
+  updateTodo(todoId, status) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this._http.put('/api/v1/todo/'+todoId, { status: status }, options)
+      .pipe(map((res: Response) => res.json()));
   }
 
 }

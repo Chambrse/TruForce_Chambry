@@ -7,7 +7,9 @@
   "author": "Giacomo Cerquone <cerquone96@hotmail.it> (http://giacomocerquone.com)",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently  \"nodemon server.js\" \"ng serve --progress=false --no-aot --proxy-config proxy.conf.json\"",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently  \"nodemon server.js\" \"ng serve --progress=false --no-aot --proxy-config proxy.conf.json\"",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -16,13 +18,13 @@
   },
   "dependencies": {
     "@angular/animations": "^5.0.2",
-    "@angular/cdk": "^2.0.0-beta.10",
+    "@angular/cdk": "^5.0.0-rc0",
     "@angular/common": "^5.0.2",
     "@angular/compiler": "^5.0.2",
     "@angular/core": "^5.0.2",
     "@angular/forms": "^5.0.2",
     "@angular/http": "^5.0.2",
-    "@angular/material": "^2.0.0-beta.12",
+    "@angular/material": "^5.0.0-rc0",
     "@angular/platform-browser": "^5.0.2",
     "@angular/platform-browser-dynamic": "^5.0.2",
     "@angular/platform-server": "^5.0.2",
@@ -43,7 +45,8 @@
     "morgan": "^1.7.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "rxjs": "^5.4.1",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

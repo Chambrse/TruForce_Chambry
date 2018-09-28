@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 import { DataService } from './Todos/Services/data.service';
 import { AppRoutes } from './app.routes';
 
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { TodoFormComponent } from './Todos/Components/todo-form/todo-form.component';
 import { TodoListComponent } from './Todos/Components/todo-list/todo-list.component';
 
@@ -33,7 +33,8 @@ import { TodoListComponent } from './Todos/Components/todo-list/todo-list.compon
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

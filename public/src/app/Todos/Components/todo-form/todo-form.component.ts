@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 // Import the DataService
 import { DataService } from './../../Services/data.service';
 
 import { Todo } from './../../Model/Todo';
+export interface Department {
+  value: string;
+}
 
 @Component({
   selector: 'todo-form',
@@ -12,13 +18,21 @@ import { Todo } from './../../Model/Todo';
 })
 export class TodoFormComponent implements OnInit {
 
+  departments: Department[] = [
+    { value: 'Billing' },
+    { value: 'Sales' },
+    { value: 'Customer Service' },
+    { value: 'Retention' },
+    { value: 'Scheduling' },
+  ];
+
   todos: Array<Todo> = [];
   todo: Todo = {
     title: '',
     text: ''
   };
 
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private router: Router) {
     this._dataService.getTodos()
       .subscribe(res => this.todos = res);
   }
@@ -26,7 +40,7 @@ export class TodoFormComponent implements OnInit {
   onSubmit() {
     this._dataService.createTodo(this.todo)
       .subscribe(res => {
-        console.log(res);
+        this.router.navigate(['/']);
       });
   }
 

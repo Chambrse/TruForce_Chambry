@@ -1,13 +1,21 @@
-<h1 class="mat-display-1" style="margin-top:2em; text-align:center;">Create a Todo</h1>
 
 <mat-card>
+  <h1 class="mat-display-1" style="margin-top:2em; text-align:center;">Create a Ticket</h1>
   <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
     <mat-form-field class="example-full-width">
-      <input matInput [(ngModel)]="todo.title" name="title" placeholder="Todo's title">
+      <input matInput [(ngModel)]="todo.title" name="title" placeholder="Ticket title">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <input matInput [(ngModel)]="todo.text" name="text" placeholder="Todo's text" />
+      <textarea matInput [(ngModel)]="todo.text" name="text" placeholder="Ticket description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-select placeholder="Department" name="department" [(ngModel)]="todo.department">
+        <mat-option *ngFor="let department of departments" [value]="department.value">
+          {{department.value}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-card-actions>

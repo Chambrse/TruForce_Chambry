@@ -1,11 +1,18 @@
-<h1 class="mat-display-1" style="margin-top:2em; text-align:center;">Read Todos</h1>
+<div style="margin-top:2em; display: flex; justify-content: center; text-align:center; align-items: center">
+<h1 class="mat-display-1 title">Tickets:</h1>
+</div>
 
 <mat-card *ngFor="let todo of todos">
   <mat-card-title>{{todo.title}}</mat-card-title>
   <mat-card-content>
     <p>{{todo.text}}</p>
+    <p>Department: {{todo.department}}</p>
+    <p>Status: {{todo.status}}</p>
   </mat-card-content>
-    <mat-card-actions>
-      <button (click)="onTodoDelete(todo._id)" mat-button color="warn">Delete</button>
-    </mat-card-actions>
+  <mat-card-actions>
+    <button (click)="onTodoDelete(todo._id)" mat-button color="warn">Delete</button>
+    <button (click)="onTodoUpdate(todo._id, 'Open')" mat-button color="primary">Open</button>
+    <button (click)="onTodoUpdate(todo._id, 'On Hold')" mat-button color="secondary">Hold</button>
+    <button (click)="onTodoUpdate(todo._id, 'Closed')" mat-button color="warn">Close</button>
+  </mat-card-actions>
 </mat-card>
